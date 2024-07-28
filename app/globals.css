@@ -24,6 +24,11 @@ body,
     @apply w-full h-full;
     background: linear-gradient(180deg, #ffffff 0%, #afa3ff 100%);
   }
+
+  .add-new {
+    @apply w-full;
+    background: linear-gradient(180deg, #3a3a3a 0%, #202020 100%);
+  }
 }
 
 :root {

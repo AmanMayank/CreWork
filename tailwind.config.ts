@@ -20,6 +20,13 @@ const config: Config = {
         bgInput: "#EBEBEB",
         textgrey: "#080808",
         whiteSmoke: "#F4F4F4",
+        davysGrey: "#555555",
+        platinumGrey: "#797979",
+        gainsboro: "#E3E1E1",
+        lightGrey: "#F9F9F9",
+      },
+      bordercolor: {
+        grey87: "#DEDEDE,",
       },
     },
   },
