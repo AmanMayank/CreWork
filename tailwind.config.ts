@@ -18,6 +18,8 @@ const config: Config = {
         customBlue: "#0054A1",
         customBlack: "#2D2D2D",
         bgInput: "#EBEBEB",
+        textgrey: "#080808",
+        whiteSmoke: "#F4F4F4",
       },
     },
   },
