@@ -1,13 +1,18 @@
 "use client";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const signup = () => {
+  const router = useRouter();
   const [data, setData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
+
+  const [error, setError] = useState(" ");
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -20,11 +25,29 @@ const signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  };
+    setError("");
 
-  console.log(data);
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/signup",
+        data
+      );
+
+      if (response.data.error) {
+        setError(response.data.message);
+      }
+
+      if (response.data.success) {
+        router.push("/home");
+      }
+
+      console.log(error);
+    } catch (err) {
+      console.log("Something went wrong", err);
+    }
+  };
 
   return (
     <div className="w-full h-full flex justify-center items-center page-gradient">
@@ -38,8 +61,8 @@ const signup = () => {
             type="text"
             onChange={handleOnChange}
             placeholder="Joe Gardner"
-            name="name"
-            value={data.name}
+            name="username"
+            value={data.username}
           ></input>
           <input
             className="w-[528px] mx-auto block  mb-[24px] px-3 py-4 rounded-lg font-inter text-customGrey bg-bgInput"
@@ -69,6 +92,8 @@ const signup = () => {
             <span className="text-customBlue"> Log in.</span>
           </Link>
         </p>
+
+        <p className="mt-4 font-inter text-xs text-red-500">{error}</p>
       </div>
     </div>
   );

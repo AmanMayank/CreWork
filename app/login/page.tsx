@@ -1,12 +1,16 @@
 "use client";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const login = () => {
+  const router = useRouter();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+  const [error, setError] = useState(" ");
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -19,8 +23,27 @@ const login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/login",
+        data
+      );
+
+      if (response.data.error) {
+        setError(response.data.message);
+      }
+
+      if (response.data.success) {
+        router.push("/home");
+      }
+
+      console.log(response);
+    } catch (err) {
+      console.log("Something went wrong", err);
+    }
   };
   return (
     <div className="w-full h-full flex justify-center items-center page-gradient">
@@ -57,6 +80,8 @@ const login = () => {
             <span className="text-customBlue">new account</span>
           </Link>
         </p>
+
+        <p className="mt-4 font-inter text-xs text-red-500">{error}</p>
       </div>
     </div>
   );
