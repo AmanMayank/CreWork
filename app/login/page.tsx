@@ -5,12 +5,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const login = () => {
-  const router = useRouter();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState(" ");
+  const router = useRouter();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +29,10 @@ const login = () => {
     try {
       const response = await axios.post(
         "http://localhost:8080/api/login",
-        data
+        data,
+        {
+          withCredentials: true, // Necessary to receive cookies
+        }
       );
 
       if (response.data.error) {

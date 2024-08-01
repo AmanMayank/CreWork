@@ -40,7 +40,7 @@ const signup = () => {
       }
 
       if (response.data.success) {
-        router.push("/home");
+        router.push("/login");
       }
 
       console.log(error);
